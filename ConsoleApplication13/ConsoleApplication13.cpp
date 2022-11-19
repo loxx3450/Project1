@@ -21,7 +21,9 @@ enum {
     rright = 77,
     up = 72,
     down = 80,
-    lleft = 75
+    lleft = 75,
+    shoot = 13,
+    flag = 32
 };
 
 void GotoXY(int X, int Y)
@@ -92,19 +94,64 @@ void GenerateArr(int** arr, int count) {
     BombsAround(arr, count);
 }
 
-void showArr(int** arr, int count) {
+void showArr(int** arr, int** ghost_massiv, int count) {
     for (int i{1}; i <= count; i++) {
         for (int j{1}; j <= count; j++) {
-            cout << arr[i][j] << " ";
+            if (arr[i][j] == 0) {
+                cout << "  ";
+            }
+            else if (ghost_massiv[i][j] == 0) {
+                cout << "* ";
+            }
+            else if (ghost_massiv[i][j] == 2) {
+                cout << "! ";
+            }
+            else {
+                cout << arr[i][j] << " ";
+            }
         }
         cout << endl;
     }
 }
 
-void play(int** arr, int count) {
+void show(int** arr, int count) {
+    for (int i{ 1 }; i <= count; i++) {
+        for (int j{ 1 }; j <= count; j++) {
+             cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+bool Shoot(int** arr, int** ghost_massiv, int x, int y) {
+    if (x != 0) {
+        x /= 2;
+    }
+    if (arr[y + 1][x + 1] == 9) {
+        return 0;
+    }
+    ghost_massiv[y + 1][x + 1] = 1;
+    return 1;
+}
+
+void Flag(int** ghost_massiv, int x, int y) {
+    if (x != 0) {
+        x /= 2;
+    }
+    ghost_massiv[y + 1][x + 1] = 2;
+}
+
+
+
+bool play(int** arr, int count) {
+    int** ghost_massiv = CreateArr(count);
     int move{}, x{ 0 }, y{ 0 };
+
     system("cls");
-    showArr(arr, count);
+    showArr(arr, ghost_massiv, count);
+    cout << "\n\n";
+    show(arr, count);
+    
     while (true) {
         move = _getch();
         switch (move) {
@@ -120,7 +167,24 @@ void play(int** arr, int count) {
         case down:
             y++;
             break;
+        case shoot:
+            if (!Shoot(arr, ghost_massiv, x, y)) {
+                return 1;
+            }
+            system("cls");
+            showArr(arr, ghost_massiv, count);
+            cout << "\n\n";
+            show(arr, count);
+            break;
+        case flag:
+            Flag(ghost_massiv, x, y);
+            system("cls");
+            showArr(arr, ghost_massiv, count);
+            cout << "\n\n";
+            show(arr, count);
+            break;
         }
+        
         GotoXY(x, y);
     }
 
@@ -136,9 +200,11 @@ int main()
     int** arr = CreateArr(count);
 
     GenerateArr(arr, count);
-    showArr(arr, count);
 
-    play(arr, count);
+    if (play(arr, count)) {
+        system("cls");
+        cout << "You losed";
+    }
 
     return 0;
 }
