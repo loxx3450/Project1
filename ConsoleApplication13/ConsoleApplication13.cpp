@@ -1,5 +1,9 @@
 ﻿#include <iostream>
+#include <Windows.h>
+#include <conio.h>
 using namespace std;
+
+
 enum {
     EMPTY = 0,
     ONE = 1,
@@ -12,6 +16,23 @@ enum {
     EIGHT = 8,
     BOMB = 9
 };
+
+enum {
+    rright = 77,
+    up = 72,
+    down = 80,
+    lleft = 75
+};
+
+void GotoXY(int X, int Y)
+{
+    HANDLE  hConsole;
+    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD coord = { X, Y };
+    SetConsoleCursorPosition(hStdOut, coord);
+}
+
+
 
 int** CreateArr(int count) {
     int** arr = new int* [count + 2];
@@ -80,6 +101,30 @@ void showArr(int** arr, int count) {
     }
 }
 
+void play(int** arr, int count) {
+    int move{}, x{ 0 }, y{ 0 };
+    system("cls");
+    showArr(arr, count);
+    while (true) {
+        move = _getch();
+        switch (move) {
+        case rright:
+            x += 2;
+            break;
+        case lleft:
+            x -= 2;
+            break;
+        case up:
+            y--;
+            break;
+        case down:
+            y++;
+            break;
+        }
+        GotoXY(x, y);
+    }
+
+}
 
 int main()
 {
@@ -92,6 +137,8 @@ int main()
 
     GenerateArr(arr, count);
     showArr(arr, count);
+
+    play(arr, count);
 
     return 0;
 }
