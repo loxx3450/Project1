@@ -155,6 +155,7 @@ void Flag(int** ghost_massiv, int x, int y) {
     }
     ghost_massiv[y + 1][x + 1] = 2;
 }
+
 int CheckAround(int** arr, int count, int x, int y) {
     for (int i{ x - 1 }; i <= x + 1; i++) {
         for (int j{ y - 1 }; j <= y + 1; j++) {
