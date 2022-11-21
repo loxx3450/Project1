@@ -27,6 +27,18 @@ enum {
     flag = 32
 };
 
+enum ConsoleColor
+{
+    Black, Blue, Green, Cyan, Red, Magenta, Brown, LightGray, DarkGray,
+    Lightblue, LightGreen, Lightcyan, lightRed, LightMagenta, Yellow, White
+};
+
+void SetColor(ConsoleColor text, ConsoleColor background)
+{
+    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
+}
+
 void GotoXY(int X, int Y)
 {
     HANDLE  hConsole;
@@ -126,16 +138,18 @@ void showArr(int** arr, Mods* mods, const int mode, int** ghost_massiv, const in
                 cout << "  ";
             }
             else if (end == TRUE && arr[i][j] == BOMB) {
-
+                SetColor(Red, Black);
                 cout << "& ";
+                SetColor(White, Black);
             }
             else if (ghost_massiv[i][j] == SECRET) {
 
                 cout << "* ";
             }
             else if (ghost_massiv[i][j] == FLAG) {
-
-                cout << "! ";
+                SetColor(Red, Black);
+                cout << char(20) << " ";
+                SetColor(White, Black);
             }
             else {
 
