@@ -139,7 +139,7 @@ void showArr(int** arr, Mods* mods, const int mode, int** ghost_massiv, const in
             }
             else if (end == TRUE && arr[i][j] == BOMB) {
                 SetColor(Red, Black);
-                cout << "& ";
+                cout << char(6) << " ";
                 SetColor(White, Black);
             }
             else if (ghost_massiv[i][j] == SECRET) {
