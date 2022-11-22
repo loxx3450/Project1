@@ -141,14 +141,14 @@
   <ItemGroup>
     <ClCompile Include="ConsoleApplication13.cpp" />
     <ClCompile Include="Logic.cpp" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="Creation.cpp" />
     <ClCompile Include="Generation.cpp" />
+    <ClCompile Include="Graphic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
+    <ClInclude Include="Graphic.h" />
     <ClInclude Include="Logic.h" />
-    <ClInclude Include="Header.h" />
     <ClInclude Include="Generation.h" />
     <ClInclude Include="Creation.h" />
   </ItemGroup>

@@ -1,9 +1,6 @@
 
 #include "common.h"
 #include "Creation.h"
-#include <iostream>
-
-using namespace std;
 
 int random(int min = 0, int max = 9) {
 
@@ -27,7 +24,6 @@ void GenerateBombs(int** arr, const int count, const int countBombs) {
             i--;
             continue;
         }
-
     }
 }
 
@@ -81,7 +77,7 @@ int CheckAround(int** arr, const int count, const int x, const int y) {
     return 0;
 }
 
-void GenerateghostArr(int** arr, int** ghost_massiv, const int count) {
+void GenerateGhostArr(int** arr, int** ghost_massiv, const int count) {
     for (int i{ 1 }; i <= count; i++) {
 
         for (int j{ 1 }; j <= count; j++) {
@@ -91,10 +87,10 @@ void GenerateghostArr(int** arr, int** ghost_massiv, const int count) {
     }
 }
 
-int** CreateGhostArr(int** arr, const int count, const int countBombs) {
+int** CreateGhostArr(int** arr, const int count) {
     int** ghost_massiv = CreateArr(count);
 
-    GenerateghostArr(arr, ghost_massiv, count);
+    GenerateGhostArr(arr, ghost_massiv, count);
 
     return ghost_massiv;
 }

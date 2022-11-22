@@ -2,6 +2,7 @@
 #include "Generation.h"
 #include "Creation.h"
 #include "Logic.h"
+#include "common.h"
 
 using namespace std;
 
@@ -24,12 +25,15 @@ int main()
     int** arr = CreateArr(count);
 
     GenerateArr(arr, count, countBombs);
-    int** ghost_massiv = CreateGhostArr(arr, count, countBombs);
+
+    int** ghost_massiv = CreateGhostArr(arr, count);
 
     if (play(arr, ghost_massiv, mods, mode, count, countBombs)) {
+
         cout << "\nYou Won";
     }
     else {
+
         cout << "\nYou Losed";
     }
 

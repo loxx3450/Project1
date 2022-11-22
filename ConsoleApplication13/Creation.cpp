@@ -1,9 +1,4 @@
 
-#include <iostream>
-#include <conio.h>
-
-using namespace std;
-
 int** CreateArr(const int count) {
     int** arr = new int* [count + 2];
 
