@@ -26,7 +26,7 @@ void GotoXY(int X, int Y)
 
 
 
-bool Shoot(int** arr, int** ghost_massiv, int x, int y) {
+bool Shoot(int** arr, int** ghost_massiv, const int count, int& countFlags, int x, int y) {
 
     x--;
     y--;
@@ -35,16 +35,23 @@ bool Shoot(int** arr, int** ghost_massiv, int x, int y) {
 
         x /= 2;
     }
-    if (arr[y + 1][x + 1] == BOMB) {
 
-        return 0;
+    if (x >= 0 && x <= count && y >= 0 && y <= count) {
+        if (arr[y + 1][x + 1] == BOMB) {
+
+            return 0;
+        }
+        else if (ghost_massiv[y + 1][x + 1] == FLAG) {
+
+            countFlags--;
+        }
+        ghost_massiv[y + 1][x + 1] = VERIFY;
     }
-    ghost_massiv[y + 1][x + 1] = VERIFY;
 
     return 1;
 }
 
-void Flag(int** ghost_massiv, int x, int y, int& countFlags, int countBombs) {
+void Flag(int** arr, int** ghost_massiv, const int count, int x, int y, int& countFlags, int countBombs) {
 
     x--;
     y--;
@@ -53,13 +60,15 @@ void Flag(int** ghost_massiv, int x, int y, int& countFlags, int countBombs) {
 
         x /= 2;
     }
-    if (ghost_massiv[y + 1][x + 1] == FLAG) {
-        ghost_massiv[y + 1][x + 1] = SECRET;
-        countFlags--;
-    }
-    else if (countFlags < countBombs) {
-        ghost_massiv[y + 1][x + 1] = FLAG;
-        countFlags++;
+    if (x >= 0 && x <= count && y >= 0 && y <= count && arr[y + 1][x + 1] != EMPTY) {
+        if (ghost_massiv[y + 1][x + 1] == FLAG) {
+            ghost_massiv[y + 1][x + 1] = SECRET;
+            countFlags--;
+        }
+        else if (countFlags < countBombs) {
+            ghost_massiv[y + 1][x + 1] = FLAG;
+            countFlags++;
+        }
     }
 }
 
@@ -132,7 +141,7 @@ bool play(int** arr, int** ghost_massiv, Mods* mods, const int mode, const int c
 
         case shoot:
 
-            if (!Shoot(arr, ghost_massiv, x, y)) {
+            if (!Shoot(arr, ghost_massiv, count, countFlags, x, y)) {
 
                 showArr(arr, mods, mode, ghost_massiv, count, countFlags, 1);
 
@@ -148,7 +157,7 @@ bool play(int** arr, int** ghost_massiv, Mods* mods, const int mode, const int c
 
         case flag:
 
-            Flag(ghost_massiv, x, y, countFlags, countBombs);
+            Flag(arr, ghost_massiv, count, x, y, countFlags, countBombs);
 
             showArr(arr, mods, mode, ghost_massiv, count, countFlags);
 
@@ -184,6 +193,12 @@ int Choice() {
             y++;
             break;
         case shoot:
+            if (y == 0) {
+                return 0;
+            }
+            else if (y > 3) {
+                return 2;
+            }
             return y - 1;
             break;
 
