@@ -13,5 +13,7 @@ enum Values {
     SECRET = 0,
     VERIFY = 1,
     FLAG = 2,
+    BOMBEMOJI = 6,
+    FLAGEMOJI = 20,
     BOMB = 9
 };

@@ -18,7 +18,7 @@ enum Buttons
 
 void GotoXY(int X, int Y)
 {
-    HANDLE  hConsole;
+    HANDLE  hConsole{};
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coord = { X, Y };
     SetConsoleCursorPosition(hStdOut, coord);
@@ -107,7 +107,7 @@ void deleteArrs(int** arr, int** ghost_massiv, const int count) {
 
 bool play(int** arr, int** ghost_massiv, Mods* mods, const int mode, const int count, const int countBombs) {
 
-    int move{}, x{ 1 }, y{ 1 }, countFlags{ 0 }, sot, eot;
+    int move{}, x{ 1 }, y{ 1 }, countFlags{ 0 }, sot{}, eot{};
 
     showArr(arr, mods, mode, ghost_massiv, count, countFlags);
 

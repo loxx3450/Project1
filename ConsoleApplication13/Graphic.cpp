@@ -31,6 +31,53 @@ void coutTime(int sot) {
     }
 }
 
+void coutNumber(int value) {
+    switch (value) {
+        case 1:
+
+            SetColor(Blue, Black);
+            cout << value << " ";
+            SetColor(White, Black);
+            break;
+
+        case 2:
+
+            SetColor(Green, Black);
+            cout << value << " ";
+            SetColor(White, Black);
+            break;
+
+        case 3:
+
+            SetColor(Red, Black);
+            cout << value << " ";
+            SetColor(White, Black);
+            break;
+
+        case 4:
+
+            SetColor(Lightblue, Black);
+            cout << value << " ";
+            SetColor(White, Black);
+            break;
+
+        case 5:
+
+            SetColor(Magenta, Black);
+            cout << value << " ";
+            SetColor(White, Black);
+            break;
+
+        case 6:
+
+            SetColor(Cyan, Black);
+            cout << value << " ";
+            SetColor(White, Black);
+            break;
+
+    }
+}
+
 void showArr(int** arr, Mods* mods, const int mode, int** ghost_massiv, const int count, const int countFlags, const int end = 0) {
 
     system("cls");
@@ -52,8 +99,8 @@ void showArr(int** arr, Mods* mods, const int mode, int** ghost_massiv, const in
                 cout << "  ";
             }
             else if (end == TRUE && arr[i][j] == BOMB) {
-                SetColor(Red, Black);
-                cout << char(6) << " ";
+                SetColor(lightRed, Black);
+                cout << char(BOMBEMOJI) << " ";
                 SetColor(White, Black);
             }
             else if (ghost_massiv[i][j] == SECRET) {
@@ -61,13 +108,13 @@ void showArr(int** arr, Mods* mods, const int mode, int** ghost_massiv, const in
                 cout << "* ";
             }
             else if (ghost_massiv[i][j] == FLAG) {
-                SetColor(Blue, Black);
-                cout << char(20) << " ";
+                SetColor(Brown, Black);
+                cout << char(FLAGEMOJI) << " ";
                 SetColor(White, Black);
             }
             else {
 
-                cout << arr[i][j] << " ";
+                coutNumber(arr[i][j]);
             }
         }
         cout << "|";
