@@ -230,6 +230,8 @@ void newgame(int** &arr, int** &ghost_massiv, Mods* mods, int &mode, int &count,
     countBombs = mods[mode].countBombs;
 
     arr = CreateArr(count);
+
     GenerateArr(arr, count, countBombs);
+
     ghost_massiv = CreateGhostArr(arr, count);
 }
