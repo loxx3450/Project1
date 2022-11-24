@@ -1,4 +1,7 @@
 ﻿#include <iostream>
+#include <fstream>
+#include <string>
+
 #include "Generation.h"
 #include "Creation.h"
 #include "Logic.h"
@@ -32,12 +35,17 @@ int main()
 
     int* records = CreateRecords();
 
+    ReturnRecords(records);
+
     while (true) {
+
         if (play(arr, ghost_massiv, records, mods, mode, count, countBombs)) {
 
             cout << "\n\nContinue?[yes/no]\n";
             cin >> decision;
             if (decision == "no") {
+
+                SaveRecords(records);
 
                 break;
             }
@@ -46,6 +54,8 @@ int main()
                 newgame(arr, ghost_massiv, mods, mode, count, countBombs);
             }
         }
+
+        
     }
     
 

@@ -11,7 +11,7 @@ int** CreateArr(const int count) {
 }
 
 int* CreateRecords() {
-    int* arr = new int[3]{0};
+    int* arr = new int[3]{};
 
     return arr;
 }

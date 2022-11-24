@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include <conio.h>
 #include <ctime>
+#include <fstream>
 #include "Logic.h"
 #include "common.h"
 #include "Graphic.h"
@@ -121,6 +122,8 @@ void Records(int* records) {
     for (int i{}; i < 3; i++) {
         cout << i + 1 << ". " << records[i] << " Points!\n";
     }
+
+
 }
 
 void addRecord(int* &records, int value) {
@@ -139,7 +142,8 @@ void addRecord(int* &records, int value) {
 }
 
 void countPoints(int* &records, int eot, int sot, Mods* mods, const int mode) {
-    int value = 1000 - (eot - sot) * mods[mode].multiply;
+    int value{};
+    value = 1000 - (eot - sot) * mods[mode].multiply;
     cout << "\nPoints: " << value << "\n";
     if (value > records[2]) {
         addRecord(records, value);
@@ -148,8 +152,6 @@ void countPoints(int* &records, int eot, int sot, Mods* mods, const int mode) {
 
 bool play(int** arr, int** ghost_massiv, int* records, Mods* mods, const int mode, const int count, const int countBombs) {
 
-    
-    
     int move{}, x{ 1 }, y{ 1 }, countFlags{ 0 }, sot{}, eot{};
 
     showArr(arr, mods, mode, ghost_massiv, count, countFlags);
@@ -188,9 +190,7 @@ bool play(int** arr, int** ghost_massiv, int* records, Mods* mods, const int mod
 
                 showArr(arr, mods, mode, ghost_massiv, count, countFlags, 1);
 
-                int eot = time(NULL);
-
-                coutTime(sot, eot);
+                eot = time(NULL);
 
                 Lose();
 
@@ -212,7 +212,7 @@ bool play(int** arr, int** ghost_massiv, int* records, Mods* mods, const int mod
 
             showArr(arr, mods, mode, ghost_massiv, count, countFlags, 1);
 
-            int eot = time(NULL);
+            eot = time(NULL);
 
             coutTime(sot, eot);
 
@@ -277,4 +277,26 @@ void newgame(int** &arr, int** &ghost_massiv, Mods* mods, int &mode, int &count,
     GenerateArr(arr, count, countBombs);
 
     ghost_massiv = CreateGhostArr(arr, count);
+}
+
+void ReturnRecords(int* &records) {
+
+    ifstream f("C:\\Users\\egork\\source\\repos\\ConsoleApplication13\\records.txt");;
+
+    for (int i{}; i < 3; i++) {
+        f >> records[i];
+    }
+
+    f.close();
+}
+
+void SaveRecords(int*& records) {
+
+    ofstream f("C:\\Users\\egork\\source\\repos\\ConsoleApplication13\\records.txt");;
+
+    for (int i{}; i < 3; i++) {
+        f << records[i] << endl;
+    }
+
+    f.close();
 }
