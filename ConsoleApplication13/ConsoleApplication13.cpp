@@ -16,11 +16,13 @@ int main()
         {20, 60, "------------------------------------------"}
     };
 
+    string decision{};
+
     int mode = Choice();
 
-    const int count = mods[mode].count;
+    int count = mods[mode].count;
 
-    const int countBombs = mods[mode].countBombs;
+    int countBombs = mods[mode].countBombs;
     
     int** arr = CreateArr(count);
 
@@ -28,14 +30,23 @@ int main()
 
     int** ghost_massiv = CreateGhostArr(arr, count);
 
-    if (play(arr, ghost_massiv, mods, mode, count, countBombs)) {
+    while (true) {
 
-        cout << "\nYou Won";
-    }
-    else {
+        if (play(arr, ghost_massiv, mods, mode, count, countBombs)) {
 
-        cout << "\nYou Losed";
+            cout << "\n\nContinue?[yes/no]\n";
+            cin >> decision;
+            if (decision == "no") {
+
+                break;
+            }
+            else {
+
+                newgame(arr, ghost_massiv, mods, mode, count, countBombs);
+            }
+        }
     }
+    
 
 
     return 0;

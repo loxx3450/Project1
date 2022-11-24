@@ -4,6 +4,8 @@
 #include "Logic.h"
 #include "common.h"
 #include "Graphic.h"
+#include "Creation.h"
+#include "Generation.h"
 using namespace std;
 
 enum Buttons
@@ -105,6 +107,14 @@ void deleteArrs(int** arr, int** ghost_massiv, const int count) {
     delete[] ghost_massiv;
 }
 
+void Lose() {
+    cout << "\nYou losed...\nTry again";
+}
+
+void Win() {
+    cout << "\nYou won!!!";
+}
+
 bool play(int** arr, int** ghost_massiv, Mods* mods, const int mode, const int count, const int countBombs) {
 
     int move{}, x{ 1 }, y{ 1 }, countFlags{ 0 }, sot{}, eot{};
@@ -145,11 +155,11 @@ bool play(int** arr, int** ghost_massiv, Mods* mods, const int mode, const int c
 
                 showArr(arr, mods, mode, ghost_massiv, count, countFlags, 1);
 
-                deleteArrs(arr, ghost_massiv, count);
-
                 coutTime(sot);
 
-                return 0;
+                Lose();
+
+                return 1;
             }
             showArr(arr, mods, mode, ghost_massiv, count, countFlags);
 
@@ -167,9 +177,9 @@ bool play(int** arr, int** ghost_massiv, Mods* mods, const int mode, const int c
 
             showArr(arr, mods, mode, ghost_massiv, count, countFlags, 1);
 
-            deleteArrs(arr, ghost_massiv, count);
-
             coutTime(sot);
+
+            Win();
 
             return 1;
         }
@@ -206,4 +216,20 @@ int Choice() {
         }
         GotoXY(x, y);
     }
+}
+
+void newgame(int** &arr, int** &ghost_massiv, Mods* mods, int &mode, int &count, int &countBombs) {
+    deleteArrs(arr, ghost_massiv, count);
+
+    system("cls");
+
+    mode = Choice();
+
+    count = mods[mode].count;
+
+    countBombs = mods[mode].countBombs;
+
+    arr = CreateArr(count);
+    GenerateArr(arr, count, countBombs);
+    ghost_massiv = CreateGhostArr(arr, count);
 }
