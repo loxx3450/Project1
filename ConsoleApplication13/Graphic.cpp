@@ -15,8 +15,7 @@ void SetColor(ConsoleColor text, ConsoleColor background)
     SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
 }
 
-void coutTime(int sot) {
-    int eot = time(NULL);
+void coutTime(int sot, int eot) {
     int time = eot - sot;
     if (time - 60 >= 0) {
         int i{ 0 };

@@ -115,8 +115,41 @@ void Win() {
     cout << "\nYou won!!!";
 }
 
-bool play(int** arr, int** ghost_massiv, Mods* mods, const int mode, const int count, const int countBombs) {
+void Records(int* records) {
 
+    cout << "Records: \n";
+    for (int i{}; i < 3; i++) {
+        cout << i + 1 << ". " << records[i] << " Points!\n";
+    }
+}
+
+void addRecord(int* &records, int value) {
+    if (value > records[0]) {
+        records[2] = records[1];
+        records[1] = records[0];
+        records[0] = value;
+    }
+    else if (value > records[1]) {
+        records[2] = records[1];
+        records[1] = value;
+    }
+    else if (value > records[2]) {
+        records[2] = value;
+    }
+}
+
+void countPoints(int* &records, int eot, int sot, Mods* mods, const int mode) {
+    int value = 1000 - (eot - sot) * mods[mode].multiply;
+    cout << "\nPoints: " << value << "\n";
+    if (value > records[2]) {
+        addRecord(records, value);
+    }
+}
+
+bool play(int** arr, int** ghost_massiv, int* records, Mods* mods, const int mode, const int count, const int countBombs) {
+
+    
+    
     int move{}, x{ 1 }, y{ 1 }, countFlags{ 0 }, sot{}, eot{};
 
     showArr(arr, mods, mode, ghost_massiv, count, countFlags);
@@ -155,7 +188,9 @@ bool play(int** arr, int** ghost_massiv, Mods* mods, const int mode, const int c
 
                 showArr(arr, mods, mode, ghost_massiv, count, countFlags, 1);
 
-                coutTime(sot);
+                int eot = time(NULL);
+
+                coutTime(sot, eot);
 
                 Lose();
 
@@ -177,15 +212,23 @@ bool play(int** arr, int** ghost_massiv, Mods* mods, const int mode, const int c
 
             showArr(arr, mods, mode, ghost_massiv, count, countFlags, 1);
 
-            coutTime(sot);
+            int eot = time(NULL);
+
+            coutTime(sot, eot);
+
+            countPoints(records, eot, sot, mods, mode);
+
+            Records(records);
 
             Win();
 
             return 1;
         }
-
+        
         GotoXY(x, y);
     }
+    
+    
 
 }
 

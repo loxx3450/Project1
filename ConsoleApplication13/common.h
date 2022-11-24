@@ -6,6 +6,7 @@ struct Mods {
     int count{ 0 };
     int countBombs{ 0 };
     std::string strip{ "no_title" };
+    int multiply;
 };
 
 enum Values {

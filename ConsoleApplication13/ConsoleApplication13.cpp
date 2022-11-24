@@ -11,9 +11,9 @@ int main()
     srand(time(NULL));
 
     Mods* mods = new Mods[3]{
-        {10, 15, "----------------------"},
-        {15, 35, "--------------------------------"},
-        {20, 60, "------------------------------------------"}
+        {10, 15, "----------------------", 7},
+        {15, 35, "--------------------------------", 4},
+        {20, 60, "------------------------------------------", 1}
     };
 
     string decision{};
@@ -30,9 +30,10 @@ int main()
 
     int** ghost_massiv = CreateGhostArr(arr, count);
 
-    while (true) {
+    int* records = CreateRecords();
 
-        if (play(arr, ghost_massiv, mods, mode, count, countBombs)) {
+    while (true) {
+        if (play(arr, ghost_massiv, records, mods, mode, count, countBombs)) {
 
             cout << "\n\nContinue?[yes/no]\n";
             cin >> decision;

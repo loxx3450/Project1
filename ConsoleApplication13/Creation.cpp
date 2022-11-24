@@ -10,3 +10,8 @@ int** CreateArr(const int count) {
     return arr;
 }
 
+int* CreateRecords() {
+    int* arr = new int[3]{0};
+
+    return arr;
+}
