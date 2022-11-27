@@ -41,6 +41,8 @@ int main()
 
         if (play(arr, ghost_massiv, records, mods, mode, count, countBombs)) {
 
+            deleteArrs(arr, ghost_massiv, count);
+
             cout << "\n\nContinue?[yes/no]\n";
             cin >> decision;
             if (decision == "no") {

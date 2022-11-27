@@ -70,11 +70,11 @@ int CheckAround(int** arr, const int count, const int x, const int y) {
 
             if (arr[i][j] == EMPTY && i >= 1 && i <= count && j >= 1 && j <= count) {
 
-                return 1;
+                return VERIFY;
             }
         }
     }
-    return 0;
+    return SECRET;
 }
 
 void GenerateGhostArr(int** arr, int** ghost_massiv, const int count) {

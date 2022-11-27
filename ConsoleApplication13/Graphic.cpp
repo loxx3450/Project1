@@ -94,10 +94,10 @@ void showArr(int** arr, Mods* mods, const int mode, int** ghost_massiv, const in
 
             if (arr[i][j] == EMPTY) {
 
-                ghost_massiv[i][j] = 1;
                 cout << "  ";
             }
             else if (end == TRUE && arr[i][j] == BOMB) {
+
                 SetColor(lightRed, Black);
                 cout << char(BOMBEMOJI) << " ";
                 SetColor(White, Black);
@@ -107,6 +107,7 @@ void showArr(int** arr, Mods* mods, const int mode, int** ghost_massiv, const in
                 cout << "* ";
             }
             else if (ghost_massiv[i][j] == FLAG) {
+
                 SetColor(Brown, Black);
                 cout << char(FLAGEMOJI) << " ";
                 SetColor(White, Black);

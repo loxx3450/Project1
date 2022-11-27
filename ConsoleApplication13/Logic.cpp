@@ -262,8 +262,6 @@ int Choice() {
 }
 
 void newgame(int** &arr, int** &ghost_massiv, Mods* mods, int &mode, int &count, int &countBombs) {
-    deleteArrs(arr, ghost_massiv, count);
-
     system("cls");
 
     mode = Choice();

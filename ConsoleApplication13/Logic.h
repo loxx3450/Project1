@@ -11,3 +11,5 @@ void newgame(int** &arr, int** &ghost_massiv, Mods* mods, int &mode, int &count,
 void ReturnRecords(int* &records);
 
 void SaveRecords(int*& records);
+
+void deleteArrs(int** arr, int** ghost_massiv, const int count);
